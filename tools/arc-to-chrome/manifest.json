@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "name": "Arc to Chrome",
+  "version": "1.0",
+  "permissions": ["tabs", "tabGroups"],
+  "action": { "default_title": "Import Arc tabs as groups" },
+  "background": { "service_worker": "background.js" }
+}

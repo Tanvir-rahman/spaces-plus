@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customize Spaces Plus</title>
+<style>
+  :root {
+    --bg: #f4f4f6; --panel: #fff; --fg: #17161b; --dim: rgba(23, 22, 27, .56); --line: rgba(23, 22, 27, .08);
+    --field: #f0f0f3; --accent: #7448e8; color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #18171c; --panel: #24232a; --fg: #f2f1f6; --dim: rgba(242, 241, 246, .56); --line: rgba(255, 255, 255, .07); --field: #2f2e36; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; accent-color: var(--accent); }
+  main { max-width: 620px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
+  .lead { color: var(--dim); margin: 0 0 28px; }
+  h2 { font-size: 13px; font-weight: 600; color: var(--dim); margin: 28px 12px 8px; }
+  .group { background: var(--panel); border-radius: 12px; overflow: hidden; }
+  .item { display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 8px 16px; }
+  .item + .item { border-top: 1px solid var(--line); }
+  .item > label:first-child, .item > .name { flex: 1; min-width: 0; }
+  .note { display: block; font-size: 12.5px; color: var(--dim); margin-top: 2px; }
+  .item[hidden] { display: none; }
+
+  /* switch */
+  .sw { appearance: none; width: 38px; height: 22px; border-radius: 11px; background: var(--line); position: relative; cursor: pointer; flex: none; margin: 0; transition: background .15s; }
+  .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .25); transition: transform .15s; }
+  .sw:checked { background: var(--accent); }
+  .sw:checked::after { transform: translateX(16px); }
+  @media (prefers-color-scheme: dark) { .sw:not(:checked) { background: rgba(255, 255, 255, .16); } }
+
+  /* segmented */
+  .seg { display: inline-flex; background: var(--field); border-radius: 8px; padding: 2px; flex: none; }
+  .seg button { font: inherit; font-size: 13px; color: var(--dim); border: 0; background: none; height: 28px; padding: 0 12px; border-radius: 6px; cursor: pointer; }
+  .seg button.on { background: var(--panel); color: var(--fg); box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+
+  /* slider */
+  .range { display: flex; align-items: center; gap: 10px; flex: none; width: min(260px, 50%); }
+  .range input { flex: 1; min-width: 0; }
+  .range output { width: 48px; text-align: right; font-variant-numeric: tabular-nums; color: var(--dim); font-size: 13px; }
+
+  input.swatch { width: 44px; height: 30px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: none; cursor: pointer; flex: none; }
+  input.swatch::-webkit-color-swatch-wrapper { padding: 3px; }
+  input.swatch::-webkit-color-swatch { border: 0; border-radius: 5px; }
+
+  /* spaces */
+  .space { gap: 10px; }
+  .space .icon { width: 40px; height: 34px; text-align: center; font-size: 17px; }
+  .space .sname { flex: 1; min-width: 0; font-weight: 500; }
+  .space input[type=text] { border: 1px solid transparent; background: var(--field); color: var(--fg); border-radius: 8px; height: 34px; padding: 0 10px; font: inherit; outline: none; }
+  .space input[type=text]:focus { border-color: var(--accent); }
+  .swatches { display: flex; gap: 4px; flex-wrap: wrap; width: 216px; flex: none; }
+  .swatches button, .swatches label { width: 18px; height: 18px; border-radius: 50%; border: 0; cursor: pointer; padding: 0; position: relative; }
+  .swatches .on { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3.5px var(--fg); }
+  .swatches label { background: conic-gradient(#e5484d, #f5a524, #30a46c, #0091ff, #8e4ec6, #e5484d); }
+  .swatches label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .move { display: flex; flex-direction: column; }
+  .move button { font: inherit; border: 0; background: none; color: var(--dim); cursor: pointer; width: 22px; height: 16px; line-height: 1; padding: 0; border-radius: 4px; }
+  .move button:hover { background: var(--field); color: var(--fg); }
+  .move button:disabled { opacity: .2; }
+
+  .btn { font: inherit; border: 0; background: var(--field); color: var(--fg); height: 32px; padding: 0 14px; border-radius: 8px; cursor: pointer; }
+  .btn:hover { filter: brightness(.96); }
+  .btn.danger { color: #d63c42; }
+  .btn:disabled { opacity: .6; cursor: default; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (max-width: 520px) {
+    .item:not(.space) { flex-wrap: wrap; }
+    .range { width: 100%; }
+    .swatches { width: 100%; }
+    .space { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Customize</h1>
+  <p class="lead">Changes apply to the sidebar as you make them. Keep it open next to this page to see them.</p>
+  <div id="form"></div>
+</main>
+<script type="module" src="customize.js"></script>
+</body>
+</html>

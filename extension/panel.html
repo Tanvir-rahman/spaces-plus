@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spaces Plus</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header id="top">
+    <div class="nav">
+      <button class="ib" id="back" title="Back"></button>
+      <button class="ib" id="fwd" title="Forward"></button>
+      <button class="ib" id="reload" title="Reload"></button>
+    </div>
+    <div id="url" tabindex="0" title="Search or enter address (⌘K)">
+      <span id="urltext"></span>
+      <button class="ib" id="copy" title="Copy link"></button>
+    </div>
+  </header>
+
+  <section id="favs"></section>
+
+  <main id="main">
+    <div id="spacehead">
+      <span id="spacebadge" class="badge"></span>
+      <span id="spacename"></span>
+      <button class="ib" id="spacemenu" title="Space options"></button>
+    </div>
+    <div id="pins"></div>
+    <div id="divider"><span class="line"></span><button id="clear" title="Close open tabs in this space. Pinned tabs stay.">Clear</button></div>
+    <div id="today"></div>
+  </main>
+
+  <section id="lib" hidden>
+    <nav id="libnav"></nav>
+    <div id="libbody">
+      <div id="libtop"><span id="libsearch"></span><input id="libq" placeholder="Search" autocomplete="off" spellcheck="false"></div>
+      <div id="liblist"></div>
+    </div>
+  </section>
+
+  <button id="more" title="Scroll down" hidden></button>
+
+  <nav id="dock">
+    <button class="ib" id="library" title="Library: downloads, archived tabs, spaces"></button>
+    <div id="chips"></div>
+    <button class="ib" id="addspace" title="New space"></button>
+  </nav>
+
+  <div id="palette" hidden>
+    <div class="card">
+      <div class="pinput"><span id="psearch"></span><input id="pq" placeholder="Search tabs, pins, bookmarks or type a URL" autocomplete="off" spellcheck="false"></div>
+      <div id="presults"></div>
+    </div>
+  </div>
+  <div id="menu" hidden></div>
+  <div id="dialog" hidden></div>
+  <div id="toast" hidden></div>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "Spaces Plus – Vertical Tabs, Sidebar & Split View",
+"short_name": "Spaces Plus",
+  "version": "4.9.0",
+  "description": "Vertical tabs with spaces, favorites, pinned tabs and split view. Any width, any look. Private, no account.",
+  "author": { "email": "support@appmotives.com" },
+  "homepage_url": "https://appmotives.com/",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "sidePanel",
+    "search",
+    "bookmarks",
+    "storage",
+    "favicon",
+    "system.display",
+    "downloads",
+    "downloads.open",
+    "sessions"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Spaces Plus",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "options_page": "customize.html",
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+S"
+      },
+      "description": "Open the sidebar"
+    },
+    "next-space": {
+      "suggested_key": {
+        "default": "Alt+Shift+Right"
+      },
+      "description": "Next space"
+    },
+    "prev-space": {
+      "suggested_key": {
+        "default": "Alt+Shift+Left"
+      },
+      "description": "Previous space"
+    }
+  }
+}
